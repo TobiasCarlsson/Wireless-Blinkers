@@ -2,9 +2,9 @@
 -I/home/tobias/.platformio/packages/framework-arduinoespressif8266/tools/sdk/lwip/include
 -I/home/tobias/.platformio/packages/framework-arduinoespressif8266/cores/esp8266
 -I/home/tobias/.platformio/packages/framework-arduinoespressif8266/variants/nodemcu
--I/home/tobias/Documents/PlatformIO/Projects/171006-123826-nodemcu/src
--I/home/tobias/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src
+-I/home/tobias/Documents/PlatformIO/Projects/Blinkers_host_side/src
 -I/home/tobias/.platformio/lib/Adafruit NeoPixel_ID28
+-I/home/tobias/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src
 -I/home/tobias/.platformio/lib/Adafruit NeoPixel_ID28
 -I/home/tobias/.platformio/packages/framework-arduinoespressif8266/libraries/ArduinoOTA
 -I/home/tobias/.platformio/packages/framework-arduinoespressif8266/libraries/DNSServer/src

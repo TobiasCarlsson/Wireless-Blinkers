@@ -8,7 +8,7 @@
 int flowTime = 10;
 int direction;
 
-#define PIN D1 // fuck martin
+#define PIN D1
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(37, PIN, NEO_RGB + NEO_KHZ800);
 
@@ -45,8 +45,6 @@ void loop() {
 
 
   String request = client.readStringUntil('\r');
-  //client.flush();
-  //Serial.println(request);
 
   direction = request.toInt();
 
@@ -68,22 +66,7 @@ void loop() {
     // BrakeOff();
     break;
   }
-
-//   if(request.toInt() == 1){
-//     Right();
-//     }
-//
-//   if(request.toInt() == 2){
-//     Left();
-//     }
-//
-//   if(request.toInt() == 3){
-//     Brake();
-//     }
-//     else{
-//       BrakeOff();
-//     }
-  }
+}
 }
 
   //Brake signal

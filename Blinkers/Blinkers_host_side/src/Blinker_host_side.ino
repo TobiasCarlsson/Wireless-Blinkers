@@ -68,21 +68,6 @@ void loop() {
     // BrakeOff();
     break;
   }
-
-//   if(request.toInt() == 1){
-//     Right();
-//     }
-//
-//   if(request.toInt() == 2){
-//     Left();
-//     }
-//
-//   if(request.toInt() == 3){
-//     Brake();
-//     }
-//     else{
-//       BrakeOff();
-//     }
   }
 }
 

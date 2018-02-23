@@ -1,35 +1,40 @@
 #include <ESP8266WiFi.h>
+#include "config.h"
 
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
 #include <avr/power.h>
 #endif
 
-int flowTime = 10;
+
 int direction;
+
 
 #define PIN D1
 
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(37, PIN, NEO_RGB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(LEDS, PIN, NEO_RGB + NEO_KHZ800);
 
 WiFiServer server(80);
 IPAddress IP(192,168,4,15);
 IPAddress mask = (255, 255, 255, 0);
-
 byte ledPin = 2;
 
 void setup() {
   Serial.begin(9600);
+  pinMode(ledPin, OUTPUT);
+
   WiFi.mode(WIFI_AP);
-  WiFi.softAP("Test", "123456798");
+  WiFi.softAP(WIFI_SSID, WIFI_PASS); //What the wifi and password is going to be.
+
   WiFi.softAPConfig(IP, IP, mask);
   server.begin();
-  pinMode(ledPin, OUTPUT);
   Serial.println();
   Serial.println("Blinker_host_side.ino");
   Serial.println("Server started.");
-  Serial.print("IP: ");     Serial.println(WiFi.softAPIP());
-  Serial.print("MAC:");     Serial.println(WiFi.softAPmacAddress());
+  Serial.print("IP: ");
+  Serial.println(WiFi.softAPIP());
+  Serial.print("MAC:");
+  Serial.println(WiFi.softAPmacAddress());
 
   strip.begin();
   strip.show();
@@ -43,12 +48,7 @@ void loop() {
 
   while(true){
 
-
-  String request = client.readStringUntil('\r');
-  //client.flush();
-  //Serial.println(request);
-
-  direction = request.toInt();
+  direction = client.readStringUntil('\r').toInt();
 
   switch (direction) {
 
@@ -96,8 +96,8 @@ void Brakelight(uint32_t c, uint8_t wait) {
   //Right turn singal
 void Right(){
     for(int x = 0; x < 1; x++){
-      TurnRight(strip.Color(55, 0, 0), flowTime);
-      TurnRight(strip.Color(0, 0, 0), flowTime);
+      TurnRight(strip.Color(55, 0, 0), FLOWTIME);
+      TurnRight(strip.Color(0, 0, 0), FLOWTIME);
     }
   }
 
@@ -112,8 +112,8 @@ void TurnRight(uint32_t c, uint8_t wait) {
 //Left turn signal
 void Left(){
     for(int x = 0; x < 1; x++){
-      TurnLeft(strip.Color(40, 0, 0), flowTime);
-      TurnLeft(strip.Color(0, 0, 0), flowTime);
+      TurnLeft(strip.Color(40, 0, 0), FLOWTIME);
+      TurnLeft(strip.Color(0, 0, 0), FLOWTIME);
     }
   }
 

@@ -49,6 +49,7 @@ void loop() {
   while(true){
 
   direction = client.readStringUntil('\r').toInt();
+  Serial.println(client.readStringUntil('\r').toInt());
 
   switch (direction) {
 
@@ -73,7 +74,7 @@ void loop() {
 
   //Brake signal
 void Brake(){
-  Brakelight(strip.Color(255, 20 ,20), 4);
+  Brakelight(strip.Color(255,127,80), 4);
 }
 void Brakelight(uint32_t c, uint8_t wait) {
   for(uint16_t i=0; i<strip.numPixels(); i++){
@@ -95,10 +96,9 @@ void Brakelight(uint32_t c, uint8_t wait) {
 
   //Right turn singal
 void Right(){
-    for(int x = 0; x < 1; x++){
       TurnRight(strip.Color(55, 0, 0), FLOWTIME);
-      TurnRight(strip.Color(0, 0, 0), FLOWTIME);
-    }
+      TurnRight(strip.Color(0, 0, 0), 0);
+
   }
 
 void TurnRight(uint32_t c, uint8_t wait) {
@@ -111,10 +111,8 @@ void TurnRight(uint32_t c, uint8_t wait) {
 
 //Left turn signal
 void Left(){
-    for(int x = 0; x < 1; x++){
       TurnLeft(strip.Color(40, 0, 0), FLOWTIME);
-      TurnLeft(strip.Color(0, 0, 0), FLOWTIME);
-    }
+      TurnLeft(strip.Color(0, 0, 0), 0);
   }
 
 void TurnLeft(uint32_t c, uint8_t wait) {

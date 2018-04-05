@@ -8,7 +8,7 @@
 
 
 int direction;
-
+int dir;
 
 #define PIN D1
 
@@ -28,16 +28,11 @@ void setup() {
 
   WiFi.softAPConfig(IP, IP, mask);
   server.begin();
-  Serial.println();
-  Serial.println("Blinker_host_side.ino");
-  Serial.println("Server started.");
-  Serial.print("IP: ");
-  Serial.println(WiFi.softAPIP());
-  Serial.print("MAC:");
-  Serial.println(WiFi.softAPmacAddress());
 
   strip.begin();
   strip.show();
+  turnOn(strip.Color(0, 100, 0), 5);
+
 
 }
 
@@ -47,9 +42,17 @@ void loop() {
   client.setTimeout(50);
 
   while(true){
-
+for (int i = 0; i < 10; i++) {
   direction = client.readStringUntil('\r').toInt();
-  Serial.println(client.readStringUntil('\r').toInt());
+
+  dir = dir + direction;
+  Serial.println(dir);
+
+}
+
+
+  client.flush();
+  //Serial.println(client.readStringUntil('\r').toInt());
 
   switch (direction) {
 
@@ -116,6 +119,14 @@ void Left(){
   }
 
 void TurnLeft(uint32_t c, uint8_t wait) {
+  for(uint16_t i=strip.numPixels()-1; i<strip.numPixels(); i--) {
+    strip.setPixelColor(i, c);
+    strip.show();
+    delay(wait);
+  }
+}
+
+void turnOn(uint32_t c, uint8_t wait) {
   for(uint16_t i=strip.numPixels()-1; i<strip.numPixels(); i--) {
     strip.setPixelColor(i, c);
     strip.show();

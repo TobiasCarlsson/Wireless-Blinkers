@@ -26,13 +26,12 @@ void setup() {
 
   Serial.begin(9600);
   WiFi.mode(WIFI_STA);
-  WiFi.begin(WIFI_SSID, WIFI_PASS
-  );           // connects to the WiFi AP
+  WiFi.begin(WIFI_SSID, WIFI_PASS);           // connects to the WiFi AP
   Serial.println();
   Serial.println("Connection to the AP");
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
-    delay(500);
+    delay(100);
   }
   /*Serial.println();
   Serial.println("Connected");
@@ -50,38 +49,28 @@ void setup() {
 }
 
 void loop() {
-
-  stateR = 0;
-  stateL = 0;
-  stateB = 0;
   stateR = digitalRead(rightButton);
   stateL = digitalRead(leftButton);
   stateB = digitalRead(brakeButton);
 
-
-
   if(stateR == 0){
     client.println(1);
-    Serial.println("1");
-    delay(70);
     client.flush();
-
-
+    Serial.println("1");
   }
+
   else if(stateL == 0){
     client.println(2);
-    delay(70);
     client.flush();
-
     Serial.println("2");
   }
+
   else if(stateB == 1){
     client.println(3);
-    delay(70);
     client.flush();
-
     Serial.println("3");
   }
+
 
   //String answer = client.readStringUntil('\r');
   //client.flush();

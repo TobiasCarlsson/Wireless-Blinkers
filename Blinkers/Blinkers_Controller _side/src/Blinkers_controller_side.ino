@@ -57,18 +57,23 @@ void loop() {
     client.println(1);
     client.flush();
     Serial.println("1");
+    delay(300);
   }
 
   else if(stateL == 0){
     client.println(2);
     client.flush();
     Serial.println("2");
+    delay(300);
+
   }
 
   else if(stateB == 1){
     client.println(3);
     client.flush();
     Serial.println("3");
+    delay(300);
+
   }
 
 

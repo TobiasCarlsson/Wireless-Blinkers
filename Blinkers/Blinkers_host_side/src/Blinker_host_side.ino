@@ -24,7 +24,7 @@ void setup() {
   pinMode(ledPin, OUTPUT);
 
   WiFi.mode(WIFI_AP);
-  WiFi.softAP(WIFI_SSID, WIFI_PASS); //What the wifi and password is going to be.
+  WiFi.softAP(WIFI_SSID, WIFI_PASS);
 
   WiFi.softAPConfig(IP, IP, mask);
   server.begin();
@@ -42,30 +42,28 @@ void loop() {
   client.setTimeout(50);
 
   while(true){
-for (int i = 0; i < 10; i++) {
+
   direction = client.readStringUntil('\r').toInt();
+  server.flush();
 
-  dir = dir + direction;
-  Serial.println(dir);
-
-}
-
-
-  client.flush();
+  Serial.println(direction);
   //Serial.println(client.readStringUntil('\r').toInt());
 
   switch (direction) {
 
     case 1:
     Right();
+    client.println(10);
     break;
 
     case 2:
     Left();
+    client.println(10);
     break;
 
     case 3:
     Brake();
+    client.println(10);
     break;
 
     default:

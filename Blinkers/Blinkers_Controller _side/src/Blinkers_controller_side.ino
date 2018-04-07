@@ -13,6 +13,8 @@ int stateR;
 int stateL;
 int stateB;
 
+int respons;
+
 byte ledPin = 2;
 
 IPAddress server(192,168,4,15);     // IP address of the AP
@@ -56,23 +58,32 @@ void loop() {
   if(stateR == 0){
     client.println(1);
     client.flush();
-    Serial.println("1");
-    delay(300);
+    respons = client.readStringUntil('\r').toInt();
+     while (respons = 10){
+       Serial.println(".");
+       }
   }
 
   else if(stateL == 0){
     client.println(2);
     client.flush();
-    Serial.println("2");
-    delay(300);
+    respons = client.readStringUntil('\r').toInt();
+    if (respons = 0){
+      return;
+    }
+     while (respons == "10"){
 
+       }
   }
+
 
   else if(stateB == 1){
     client.println(3);
     client.flush();
-    Serial.println("3");
-    delay(300);
+    respons = client.readStringUntil('\r').toInt();
+     while (respons = 10){
+      Serial.println(".");
+       }
 
   }
 

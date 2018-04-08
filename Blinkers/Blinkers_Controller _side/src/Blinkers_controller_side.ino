@@ -24,9 +24,8 @@ void setup() {
   pinMode(rightButton, INPUT_PULLUP);
   pinMode(leftButton, INPUT_PULLUP);
   pinMode(brakeButton, INPUT);
-
-
   Serial.begin(9600);
+
   WiFi.mode(WIFI_STA);
   WiFi.begin(WIFI_SSID, WIFI_PASS);           // connects to the WiFi AP
   Serial.println();
@@ -35,18 +34,9 @@ void setup() {
     Serial.print(".");
     delay(100);
   }
-  /*Serial.println();
-  Serial.println("Connected");
-  Serial.println("station_bare_01.ino");
-  Serial.print("LocalIP:"); Serial.println(WiFi.localIP());
-  Serial.println("MAC:" + WiFi.macAddress());
-  Serial.print("Gateway:"); Serial.println(WiFi.gatewayIP());
-  Serial.print("AP MAC:"); Serial.println(WiFi.BWIFIF_SSIDstr());*/
 
   digitalWrite(D4, 1);
-
   client.connect(server, 80);
-
   client.setTimeout(50);
 }
 
@@ -57,41 +47,37 @@ void loop() {
 
   if(stateR == 0){
     client.println(1);
-    client.flush();
-    respons = client.readStringUntil('\r').toInt();
-     while (respons = 10){
-       Serial.println(".");
-       }
+    delay(800);
   }
 
   else if(stateL == 0){
     client.println(2);
-    client.flush();
-    respons = client.readStringUntil('\r').toInt();
-    if (respons = 0){
-      return;
-    }
-     while (respons == "10"){
-
-       }
+    delay(800);
   }
-
 
   else if(stateB == 1){
     client.println(3);
-    client.flush();
-    respons = client.readStringUntil('\r').toInt();
-     while (respons = 10){
-      Serial.println(".");
-       }
-
   }
 
+  if (WiFi.status() != WL_CONNECTED){
+    connect();
+  }
+}
 
-  //String answer = client.readStringUntil('\r');
-  //client.flush();
+void connect(){
+  delay(1000);
+  Serial.print("not connect");
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(WIFI_SSID, WIFI_PASS);           // connects to the WiFi AP
+  Serial.println();
+  Serial.println("Connection to the AP");
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(100);
+  }
 
-
-
+  digitalWrite(D4, 1);
+  client.connect(server, 80);
+  client.setTimeout(50);
 
 }

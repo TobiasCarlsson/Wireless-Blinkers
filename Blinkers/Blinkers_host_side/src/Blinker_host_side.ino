@@ -51,19 +51,25 @@ void loop() {
 
   switch (direction) {
 
+
     case 1:
     Right();
-    client.println(10);
+    // client.println(10);
+    // client.flush();
+
     break;
 
     case 2:
     Left();
-    client.println(10);
+    // client.println(10);
+    // client.flush();
     break;
 
     case 3:
     Brake();
-    client.println(10);
+    // client.println(10);
+    // client.flush();
+
     break;
 
     default:

@@ -26,18 +26,7 @@ void setup() {
   pinMode(brakeButton, INPUT);
   Serial.begin(9600);
 
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(WIFI_SSID, WIFI_PASS);           // connects to the WiFi AP
-  Serial.println();
-  Serial.println("Connection to the AP");
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print(".");
-    delay(100);
-  }
-
-  digitalWrite(D4, 1);
-  client.connect(server, 80);
-  client.setTimeout(50);
+  connect();
 }
 
 void loop() {
@@ -57,6 +46,7 @@ void loop() {
 
   else if(stateB == 1){
     client.println(3);
+    delay(800);
   }
 
   if (WiFi.status() != WL_CONNECTED){

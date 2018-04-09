@@ -31,7 +31,7 @@ void setup() {
 
   strip.begin();
   strip.show();
-  turnOn(strip.Color(0, 100, 0), 5);
+  BootLight(strip.Color(0, 100, 0), 5);
 
 
 }
@@ -54,28 +54,20 @@ void loop() {
 
     case 1:
     Right();
-    // client.println(10);
-    // client.flush();
-
     break;
 
     case 2:
     Left();
-    // client.println(10);
-    // client.flush();
     break;
 
     case 3:
     Brake();
-    // client.println(10);
-    // client.flush();
-
     break;
 
     default:
-    // BrakeOff();
+    BrakeOff();
     break;
-  }
+    }
   }
 }
 
@@ -90,16 +82,15 @@ void Brakelight(uint32_t c, uint8_t wait) {
   strip.show();
 }
 
-// void BrakeOff(){
-//   BrakelightOff(strip.Color(0, 0 ,0), 4);
-// }
-// void BrakelightOff(uint32_t c, uint8_t wait) {
-//   for(uint16_t i=0; i<strip.numPixels(); i++){
-//     strip.setPixelColor(i, c);
-//   }
-//   strip.show();
-//   //delay(wait);
-// }
+void BrakeOff(){
+  BrakelightOff(strip.Color(0, 0 ,0), 4);
+}
+void BrakelightOff(uint32_t c, uint8_t wait) {
+  for(uint16_t i=0; i<strip.numPixels(); i++){
+    strip.setPixelColor(i, c);
+  }
+  strip.show();
+}
 
   //Right turn singal
 void Right(){
@@ -129,8 +120,8 @@ void TurnLeft(uint32_t c, uint8_t wait) {
     delay(wait);
   }
 }
-
-void turnOn(uint32_t c, uint8_t wait) {
+// Boot light
+void BootLight(uint32_t c, uint8_t wait) {
   for(uint16_t i=strip.numPixels()-1; i<strip.numPixels(); i--) {
     strip.setPixelColor(i, c);
     strip.show();

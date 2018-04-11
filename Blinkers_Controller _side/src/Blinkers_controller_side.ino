@@ -58,7 +58,7 @@ void connect(){
   delay(1000);
   Serial.print("not connect");
   WiFi.mode(WIFI_STA);
-  WiFi.begin(WIFI_SSID, WIFI_PASS); 
+  WiFi.begin(WIFI_SSID, WIFI_PASS); c
   Serial.println();
   Serial.println("Connection to the AP");
   while (WiFi.status() != WL_CONNECTED) {

@@ -22,6 +22,7 @@ void setup() {
   Serial.begin(9600);
   pinMode(ledPin, OUTPUT);
 
+  strip.setBrightness(150); // Set the strips brightness
   WiFi.mode(WIFI_AP);
   WiFi.softAP(WIFI_SSID, WIFI_PASS);
 
@@ -30,14 +31,15 @@ void setup() {
 
   strip.begin();
   strip.show();
-  rainbowCycle(20);
-
+  delay(500);
 
 }
 
 void loop() {
   WiFiClient client = server.available();
-  if (!client) {return;}
+  if (!client) {
+    rainbowCycle(20);
+    return;}
   client.setTimeout(50);
 
   while(true){
@@ -61,6 +63,7 @@ void loop() {
 
     case 3:
     Brake();
+    delay(100);
     break;
 
     default:
@@ -72,7 +75,7 @@ void loop() {
 
   //Brake signal
 void Brake(){
-  Brakelight(strip.Color(255,130,0), 4);
+  Brakelight(strip.Color(55,0,0), 4);
 }
 void Brakelight(uint32_t c, uint8_t wait) {
   for(uint16_t i=0; i<strip.numPixels(); i++){
@@ -125,7 +128,7 @@ void TurnLeft(uint32_t c, uint8_t wait) {
 void rainbowCycle(uint8_t wait) {
   uint16_t i, j;
 
-  for(j=0; j<256*5; j++) { // 5 cycles of all colors on wheel
+  for(j=0; j<256*1; j++) { // 5 cycles of all colors on wheel
     for(i=0; i< strip.numPixels(); i++) {
       strip.setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) + j) & 255));
     }

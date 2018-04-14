@@ -46,7 +46,7 @@ void loop() {
 
   else if(stateB == 1){
     client.println(3);
-    delay(800);
+    delay(100);
   }
 
   if (WiFi.status() != WL_CONNECTED){

@@ -7,14 +7,11 @@
 #endif
 
 
-int direction;
-int dir;
+int state;
 
-#define LED1 D1
-#define LED2 D2
+#define LED D1
 
-Adafruit_NeoPixel strip1 = Adafruit_NeoPixel(LEDS, LED1, NEO_RGB + NEO_KHZ800);
-Adafruit_NeoPixel strip2 = Adafruit_NeoPixel(LEDS, LED2, NEO_RGB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(LEDS, LED, NEO_RGB + NEO_KHZ800);
 
 WiFiServer server(80);
 IPAddress IP(192,168,4,15);
@@ -31,9 +28,9 @@ void setup() {
   WiFi.softAPConfig(IP, IP, mask);
   server.begin();
 
-  strip1.begin();
-  strip1.show();
-  BootLight(strip1.Color(0, 100, 0), 5);
+  strip.begin();
+  strip.show();
+  rainbowCycle(20);
 
 
 }
@@ -45,13 +42,13 @@ void loop() {
 
   while(true){
 
-  direction = client.readStringUntil('\r').toInt();
+  state = client.readStringUntil('\r').toInt();
   server.flush();
 
-  Serial.println(direction);
+  Serial.println(state);
   //Serial.println(client.readStringUntil('\r').toInt());
 
-  switch (direction) {
+  switch (state) {
 
 
     case 1:
@@ -75,67 +72,78 @@ void loop() {
 
   //Brake signal
 void Brake(){
-  Brakelight(strip1.Color(255,130,0), 4);
+  Brakelight(strip.Color(255,130,0), 4);
 }
 void Brakelight(uint32_t c, uint8_t wait) {
-  for(uint16_t i=0; i<strip1.numPixels(); i++){
-    strip1.setPixelColor(i, c);
+  for(uint16_t i=0; i<strip.numPixels(); i++){
+    strip.setPixelColor(i, c);
   }
-  strip1.show();
+  strip.show();
 }
 
 void BrakeOff(){
-  BrakelightOff(strip1.Color(0, 0 ,0), 4);
+  BrakelightOff(strip.Color(0, 0 ,0), 4);
 }
 void BrakelightOff(uint32_t c, uint8_t wait) {
-  for(uint16_t i=0; i<strip1.numPixels(); i++){
-    strip1.setPixelColor(i, c);
+  for(uint16_t i=0; i<strip.numPixels(); i++){
+    strip.setPixelColor(i, c);
   }
-  strip1.show();
+  strip.show();
 }
 
   //Right turn singal
 void Right(){
-      TurnRight(strip1.Color(55, 0, 0), FLOWTIME);
-      TurnRight(strip1.Color(0, 0, 0), 0);
+      TurnRight(strip.Color(55, 0, 0), FLOWTIME);
+      TurnRight(strip.Color(0, 0, 0), 0);
 
   }
 
 void TurnRight(uint32_t c, uint8_t wait) {
-  for(uint16_t i=0; i<strip1.numPixels(); i++) {
-    strip1.setPixelColor(i, c);
-    strip11.show();
+  for(uint16_t i=0; i<strip.numPixels(); i++) {
+    strip.setPixelColor(i, c);
+    strip.show();
     delay(wait);
   }
 }
 
 //Left turn signal
 void Left(){
-      TurnLeft(strip1.Color(40, 0, 0), FLOWTIME);
-      TurnLeft(strip1.Color(0, 0, 0), 0);
+      TurnLeft(strip.Color(40, 0, 0), FLOWTIME);
+      TurnLeft(strip.Color(0, 0, 0), 0);
   }
 
 void TurnLeft(uint32_t c, uint8_t wait) {
-  for(uint16_t i=strip1.numPixels()-1; i<strip1.numPixels(); i--) {
-    strip1.setPixelColor(i, c);
-    strip1.show();
+  for(uint16_t i=strip.numPixels()-1; i<strip.numPixels(); i--) {
+    strip.setPixelColor(i, c);
+    strip.show();
     delay(wait);
   }
 }
-// Boot light
-void BootLight(uint32_t c, uint8_t wait) {
-  for(uint16_t i=strip1.numPixels()-1; i<strip1.numPixels(); i--) {
-    strip1.setPixelColor(i, c);
-    strip1.show();
-    delay(wait);
-  }
-}
+
 // Rainbowlight
-void RainbowCycle(uint8_t interval, direction dir = FORWARD)
-{
-    ActivePattern = RAINBOW_CYCLE;
-    Interval = interval;
-    TotalSteps = 255;
-    Index = 0;
-    Direction = dir;
+// Slightly different, this makes the rainbow equally distributed throughout
+void rainbowCycle(uint8_t wait) {
+  uint16_t i, j;
+
+  for(j=0; j<256*5; j++) { // 5 cycles of all colors on wheel
+    for(i=0; i< strip.numPixels(); i++) {
+      strip.setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) + j) & 255));
+    }
+    strip.show();
+    delay(wait);
+  }
+}
+
+// Input a value 0 to 255 to get a color value.
+// The colours are a transition r - g - b - back to r.
+uint32_t Wheel(byte WheelPos) {
+  if(WheelPos < 85) {
+   return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+  } else if(WheelPos < 170) {
+   WheelPos -= 85;
+   return strip.Color(255 - WheelPos * 3, 0, WheelPos * 3);
+  } else {
+   WheelPos -= 170;
+   return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
+  }
 }

@@ -1,9 +1,6 @@
-// When I make stuff. It might work maybe it won't work. ¯\_(ツ)_/¯
+// When I make stuff. It might work maybe it won't work. ¯\_(ツ)_/¯ To see this code in use, visit my instagram @quad_out
 #include "config.h"
 #include <ESP8266WiFi.h>
-
-int pot;
-
 
 int rightButton = D4;  // White button
 int leftButton = D3;   // Green Button
@@ -21,8 +18,8 @@ IPAddress server(192,168,4,15);     // IP address of the AP
 WiFiClient client;
 
 void setup() {
-  pinMode(rightButton, INPUT_PULLUP);
-  pinMode(leftButton, INPUT_PULLUP);
+  pinMode(rightButton, INPUT_PULLUP); // Using the integrated pullup resistor pin on the wemos
+  pinMode(leftButton, INPUT_PULLUP);  // So you dont need to use as many extra components
   pinMode(brakeButton, INPUT);
   Serial.begin(9600);
 
@@ -49,8 +46,8 @@ void loop() {
     delay(100);
   }
 
-  if (WiFi.status() != WL_CONNECTED){
-    connect();
+  if (WiFi.status() != WL_CONNECTED){ // Checks if im still connected to the host
+    connect(); // Runs connect function which will reconnect to the wifi and client
   }
 }
 

@@ -1,3 +1,4 @@
+// When I make stuff. It might work maybe it won't work. ¯\_(ツ)_/¯ To see this code in use, visit my instagram @quad_out
 #include <ESP8266WiFi.h>
 #include "config.h"
 
@@ -38,7 +39,7 @@ void setup() {
 void loop() {
   WiFiClient client = server.available();
   if (!client) {
-    rainbowCycle(20);
+    rainbowCycle(5);
     return;}
   client.setTimeout(50);
 
@@ -97,7 +98,6 @@ void BrakelightOff(uint32_t c, uint8_t wait) {
   //Right turn singal
 void Right(){
       TurnRight(strip.Color(55, 0, 0), FLOWTIME);
-      TurnRight(strip.Color(0, 0, 0), 0);
 
   }
 
@@ -112,7 +112,7 @@ void TurnRight(uint32_t c, uint8_t wait) {
 //Left turn signal
 void Left(){
       TurnLeft(strip.Color(40, 0, 0), FLOWTIME);
-      TurnLeft(strip.Color(0, 0, 0), 0);
+
   }
 
 void TurnLeft(uint32_t c, uint8_t wait) {

@@ -7,9 +7,7 @@
 #include <avr/power.h>
 #endif
 
-int state; // just a declaring the switch
-
-#define LED D1
+int state; // just a declaring the state to us in the switch
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(LEDS, LED, NEO_RGB + NEO_KHZ800);
 
@@ -43,9 +41,9 @@ void loop() {
   while(true){
 
   state = client.readStringUntil('\r').toInt(); // Reciving the string from the controller and making it to an interger
-  server.flush();
+  server.flush(); // wating for the whole string to be recieved
 
-  Serial.println(state);
+  //Serial.println(state); // Serial print the state value which is a interger (only needed for debugging)
 
   switch (state) {
 

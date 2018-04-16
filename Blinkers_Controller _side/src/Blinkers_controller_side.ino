@@ -2,17 +2,12 @@
 #include "config.h"
 #include <ESP8266WiFi.h>
 
-int rightButton = D4;  // White button
-int leftButton = D3;   // Green Button
-int brakeButton = D2;  // Red button
 
-int stateR;
-int stateL;
-int stateB;
+int stateR; // The state for right button
+int stateL; // The state for left button
+int stateB; // The state for brake button
 
-int respons;
 
-byte ledPin = 2;
 
 IPAddress server(192,168,4,15);     // IP address of the AP
 WiFiClient client;

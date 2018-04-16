@@ -7,21 +7,18 @@
 #include <avr/power.h>
 #endif
 
-
-int state;
+int state; // just a declaring the switch
 
 #define LED D1
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(LEDS, LED, NEO_RGB + NEO_KHZ800);
 
-WiFiServer server(80);
-IPAddress IP(192,168,4,15);
+WiFiServer server(80); // Sets the port to open
+IPAddress IP(192,168,4,15); // The ip address for the server
 IPAddress mask = (255, 255, 255, 0);
-byte ledPin = 2;
 
 void setup() {
   Serial.begin(9600);
-  pinMode(ledPin, OUTPUT);
 
   strip.setBrightness(150); // Set the strips brightness
   WiFi.mode(WIFI_AP);
@@ -30,8 +27,8 @@ void setup() {
   WiFi.softAPConfig(IP, IP, mask);
   server.begin();
 
-  strip.begin();
-  strip.show();
+  strip.begin(); // Prepars the datapin for neopixel commands
+  strip.show(); // Turns off all the leds
   delay(500);
 
 }
@@ -45,11 +42,10 @@ void loop() {
 
   while(true){
 
-  state = client.readStringUntil('\r').toInt();
+  state = client.readStringUntil('\r').toInt(); // Reciving the string from the controller and making it to an interger
   server.flush();
 
   Serial.println(state);
-  //Serial.println(client.readStringUntil('\r').toInt());
 
   switch (state) {
 
@@ -64,7 +60,7 @@ void loop() {
 
     case 3:
     Brake();
-    delay(100);
+    delay(150);
     break;
 
     default:

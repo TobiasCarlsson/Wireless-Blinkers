@@ -28,7 +28,7 @@ void loop() {
 
   if(stateR == 0){
     client.println(1);
-    delay(800);
+    delay(800); // These delays are necessary in this state 
   }
 
   else if(stateL == 0){

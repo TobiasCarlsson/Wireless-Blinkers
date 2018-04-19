@@ -24,11 +24,11 @@ void setup() {
 void loop() {
   stateR = digitalRead(rightButton);
   stateL = digitalRead(leftButton);
-  stateB = digitalRead(brakeButton);
+  stateB = digitalRead(brakeButton); 
 
   if(stateR == 0){
     client.println(1);
-    delay(800); // These delays are necessary in this state 
+    delay(800); // These delays are necessary in this state
   }
 
   else if(stateL == 0){
@@ -48,11 +48,9 @@ void loop() {
 
 void connect(){
   delay(1000);
-  Serial.print("not connect");
   WiFi.mode(WIFI_STA);
   WiFi.begin(WIFI_SSID, WIFI_PASS);
-  Serial.println();
-  Serial.println("Connection to the AP");
+
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
     delay(100);

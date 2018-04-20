@@ -58,7 +58,7 @@ void loop() {
 
     case 3:
     Brake();
-    delay(150);
+    delay(100);
     break;
 
     default:
@@ -92,6 +92,7 @@ void BrakelightOff(uint32_t c, uint8_t wait) {
   //Right turn singal
 void Right(){
       TurnRight(strip.Color(55, 0, 0), FLOWTIME);
+      TurnLeft(strip.Color(0, 0, 0), 0);
 
   }
 
@@ -106,6 +107,7 @@ void TurnRight(uint32_t c, uint8_t wait) {
 //Left turn signal
 void Left(){
       TurnLeft(strip.Color(40, 0, 0), FLOWTIME);
+      TurnLeft(strip.Color(0, 0, 0), 0);
 
   }
 

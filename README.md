@@ -10,3 +10,8 @@ You will need to add a pullup resistor to one of the button because wemos d1 onl
 When booting on the host side you the led strip will light up green when it has opened it's wifi hotspot.
 
 The controller side will light up its internal led when it's connected.
+
+
+### The cad files
+All the cad files can be found on my thingiverse
+https://www.thingiverse.com/Quad_out/about

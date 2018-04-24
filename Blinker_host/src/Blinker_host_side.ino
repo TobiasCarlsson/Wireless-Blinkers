@@ -8,6 +8,7 @@
 #endif
 
 int state; // just a declaring the state to us in the switch
+int run;
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(LEDS, LED, NEO_RGB + NEO_KHZ800);
 
@@ -35,10 +36,13 @@ void loop() {
   WiFiClient client = server.available();
   if (!client) {
     rainbowCycle(5);
-    return;}
+    run = 1;
+    return;
+
+  }
   client.setTimeout(50);
 
-  while(true){
+  while(run = 1){
 
   state = client.readStringUntil('\r').toInt(); // Reciving the string from the controller and making it to an interger
   server.flush(); // wating for the whole string to be recieved
@@ -63,6 +67,12 @@ void loop() {
     default:
     BrakeOff();
     break;
+    }
+    if(state != 0){
+      start = milis();
+      if(start > 10000-milis()){
+        run = 0;
+      }
     }
   }
 }

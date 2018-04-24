@@ -45,8 +45,7 @@ void loop() {
 
   //Serial.println(state); // Serial print the state value which is a interger (only needed for debugging)
 
-  switch (state) {
-
+  switch (state) { // Simple switch statment which decide what to do
 
     case 1:
     Right();

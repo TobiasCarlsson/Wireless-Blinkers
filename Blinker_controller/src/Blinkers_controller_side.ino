@@ -15,7 +15,7 @@ WiFiClient client;
 void setup() {
   pinMode(rightButton, INPUT_PULLUP); // Using the integrated pullup resistor pin on the wemos
   pinMode(leftButton, INPUT_PULLUP);  // So you dont need to use as many extra components
-  pinMode(brakeButton, INPUT);
+  pinMode(brakeButton, INPUT); // You will need to add a pullupp or pulldown resistor on this button
   Serial.begin(9600);
 
   connect();
@@ -24,11 +24,11 @@ void setup() {
 void loop() {
   stateR = digitalRead(rightButton);
   stateL = digitalRead(leftButton);
-  stateB = digitalRead(brakeButton); 
+  stateB = digitalRead(brakeButton);
 
   if(stateR == 0){
     client.println(1);
-    delay(800); // These delays are necessary in this state
+    delay(800); // These delays are necessary to have a reliable code
   }
 
   else if(stateL == 0){

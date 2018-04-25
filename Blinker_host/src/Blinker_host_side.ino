@@ -9,6 +9,7 @@
 
 int state; // just a declaring the state to us in the switch
 int run;
+int start;
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(LEDS, LED, NEO_RGB + NEO_KHZ800);
 
@@ -47,7 +48,7 @@ void loop() {
   state = client.readStringUntil('\r').toInt(); // Reciving the string from the controller and making it to an interger
   server.flush(); // wating for the whole string to be recieved
 
-  //Serial.println(state); // Serial print the state value which is a interger (only needed for debugging)
+  Serial.println(state); // Serial print the state value which is a interger (only needed for debugging)
 
   switch (state) { // Simple switch statment which decide what to do
 
@@ -67,12 +68,6 @@ void loop() {
     default:
     BrakeOff();
     break;
-    }
-    if(state != 0){
-      start = milis();
-      if(start > 10000-milis()){
-        run = 0;
-      }
     }
   }
 }

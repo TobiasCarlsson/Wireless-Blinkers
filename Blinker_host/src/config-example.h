@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define LEDS 40 // The number of led that you are going to use
+#define LEDS 30 // The number of led that you are going to use
 #define FLOWTIME 20 // 20 seems to be a good amount of delay to make i look smooth
 
 #define WIFI_SSID "ssid" // Name of wifi, can be anything

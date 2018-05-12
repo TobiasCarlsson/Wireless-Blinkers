@@ -22,7 +22,7 @@ void setup() {
 
   strip.setBrightness(150); // Set the strips brightness
   WiFi.mode(WIFI_AP);
-  WiFi.softAP(WIFI_SSID, WIFI_PASS);
+  WiFi.softAP(WIFI_SSID, WIFI_PASS, 1, true);
 
   WiFi.softAPConfig(IP, IP, mask);
   server.begin();

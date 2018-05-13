@@ -28,12 +28,12 @@ void loop() {
 
   if(stateR == 0){
     client.println(1);
-    delay(800); // These delays are necessary to have a reliable code
+    delay(700); // These delays are necessary to have a reliable code
   }
 
   else if(stateL == 0){
     client.println(2);
-    delay(800);
+    delay(700);
   }
 
   else if(stateB == 1){

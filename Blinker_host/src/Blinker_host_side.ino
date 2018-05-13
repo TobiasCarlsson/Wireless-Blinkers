@@ -94,13 +94,13 @@ void BrakelightOff(uint32_t c, uint8_t wait) {
 }
 
   //Right turn singal
-void Right(){
-      TurnRight(strip.Color(55, 0, 0), FLOWTIME);
+void Left(){
+      TurnLeft(strip.Color(55, 0, 0), FLOWTIME);
       TurnLeft(strip.Color(0, 0, 0), 0);
 
   }
 
-void TurnRight(uint32_t c, uint8_t wait) {
+void TurnLeft(uint32_t c, uint8_t wait) {
   for(uint16_t i=0; i<strip.numPixels(); i++) {
     strip.setPixelColor(i, c);
     strip.show();
@@ -108,14 +108,14 @@ void TurnRight(uint32_t c, uint8_t wait) {
   }
 }
 
-//Left turn signal
-void Left(){
-      TurnLeft(strip.Color(40, 0, 0), FLOWTIME);
-      TurnLeft(strip.Color(0, 0, 0), 0);
+//Right turn signal
+void Right(){
+      TurnRight(strip.Color(55, 0, 0), FLOWTIME);
+      TurnRight(strip.Color(0, 0, 0), 0);
 
   }
 
-void TurnLeft(uint32_t c, uint8_t wait) {
+void TurnRight(uint32_t c, uint8_t wait) {
   for(uint16_t i=strip.numPixels()-1; i<strip.numPixels(); i--) {
     strip.setPixelColor(i, c);
     strip.show();

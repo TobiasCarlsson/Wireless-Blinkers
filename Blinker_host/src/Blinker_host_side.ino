@@ -39,8 +39,8 @@ void loop() {
     rainbowCycle(5);
     run = 1;
     return;
-
   }
+
   client.setTimeout(50);
 
   while(run = 1){
@@ -68,6 +68,11 @@ void loop() {
     default:
     BrakeOff();
     break;
+    }
+    WiFiClient client = server.available();
+    if (!client) {
+      run = 0;
+      return;
     }
   }
 }
